@@ -1,0 +1,23 @@
+# Run the promise-extraction pipeline in a container while keeping the SQLite
+# database as a plain host file (bind mount, NOT a Docker volume) so it stays
+# reusable by the Go CLI and any other tool.
+#
+# Prerequisites:
+# - Ollama must be running on the host (localhost:11434), which is why
+#   network_mode: host is required.
+# - The llama3.2:3b model must be pulled:  ollama pull llama3.2:3b
+#
+# Usage:
+#   docker compose up --build            # full run (builds promesas.db)
+#   docker compose run --rm extractor --limit 50   # smoke test
+services:
+  extractor:
+    build: ./bible-processor
+    network_mode: host
+    # Run as the host user (not root) so the bind-mounted promesas.db keeps sane
+    # ownership and remains directly usable/editable on the host.
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      # Bind-mount the project folder; the container writes promesas.db here,
+      # so it appears directly on the host (same path used by promise-cli).
+      - ./bible-processor:/app

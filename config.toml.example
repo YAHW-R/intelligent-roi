@@ -1,0 +1,14 @@
+# Config for promesas-cli
+# Copy this file to ~/.config/promesas/config.toml (or $XDG_CONFIG_HOME/promesas/config.toml)
+#
+# The tags must match the English tags stored in promesas.db.
+
+usuario = "Tu Nombre"
+
+# Preferred promise tags. The CLI prefers verses matching any of these. Leave
+# empty to pick from any promise.
+tags_preferidos = ["strength", "comfort"]
+
+# Absolute path to the SQLite database. If omitted, defaults to
+# ~/.config/promesas/promesas.db, unless the PROMESAS_DB env var is set.
+# db_path = "/home/tu/promesas.db"
