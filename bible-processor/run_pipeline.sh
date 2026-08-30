@@ -9,7 +9,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-EXTRA=("${@:-}")
+EXTRA=("$@")
 
 echo "[1/3] Filtering candidate verses..."
 python3 candidates.py
